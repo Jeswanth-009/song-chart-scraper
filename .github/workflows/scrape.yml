@@ -1,0 +1,36 @@
+name: nightly-scrape
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # 03:00 UTC daily
+  workflow_dispatch: {}
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run scraper
+        env:
+          SCRAPE_BASE_URL: https://kworb.net/
+          SCRAPE_SEEDS: https://kworb.net/,https://kworb.net/ww/,https://kworb.net/itunes/,https://kworb.net/charts/,https://kworb.net/spotify/,https://kworb.net/youtube/,https://kworb.net/youtube/trending.html
+          SCRAPE_MAX_PAGES: 2000
+          SCRAPE_FETCH_DELAY_MS: 800
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_BRANCH: ${{ github.ref_name }}
+          GITHUB_PATH: data/kworb.json
+        run: npm run scrape

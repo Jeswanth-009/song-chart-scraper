@@ -1,0 +1,29 @@
+{
+  "name": "kworb-chart-scraper",
+  "version": "1.0.0",
+  "description": "Scrape kworb.net worldwide charts daily and expose cached data via an API.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "scrape": "tsx src/scrape.ts",
+    "serve": "tsx src/server.ts",
+    "schedule": "tsx src/scheduler.ts",
+    "lint": "echo 'No lint configured'"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "node-cron": "^3.0.3",
+    "@supabase/supabase-js": "^2.45.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.30",
+    "tsx": "^4.15.7",
+    "typescript": "^5.4.5"
+  }
+}
