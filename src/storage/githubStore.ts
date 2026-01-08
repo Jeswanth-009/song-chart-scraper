@@ -3,7 +3,7 @@ import { CrawlResult, StorePayload } from "../types.js";
 const token = process.env.GITHUB_TOKEN;
 const repo = process.env.GITHUB_REPO; // format: owner/repo
 const branch = process.env.GITHUB_BRANCH ?? "main";
-const filePath = process.env.GITHUB_PATH ?? "data/kworb.json";
+const filePath = (process.env.GITHUB_PATH ?? "data/kworb.json").replace(/^\/+/, ""); // strip leading slashes
 
 const apiBase = "https://api.github.com";
 
